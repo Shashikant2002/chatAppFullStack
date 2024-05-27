@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
+
+$dark: #000000e6;
+$dark_full: #020202;
+$light: #8585850f;
+$white: #fff;
+
+$light_text: #ffffff57;
+
+$primary: #3ee27a;
+$primaryLight: #99ffee;
+
+$input_bg: #ffffff17;
+
+$pop_back_drop: #0000006b;
+
+@import "./app.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Exo 2", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+// Global Style Start =============>>>>
+
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 50px $dark; 
+}
+::-webkit-scrollbar-thumb {
+  background: $primary; 
+  border-radius: 10px;
+  height: 100px;
+  transition: .5s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #fff; 
+}
+body{
+  width: 100%;
+  overflow: hidden;
+}
+#root {
+  background: $dark !important;
+  height: 100vh;
+  width: 100%;
+  // overflow: hidden;
+}
+h1 {
+  font-size: 50px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 25px;
+}
+h4 {
+  font-size: 20px;
+}
+p,
+label {
+  font-size: 15px;
+  line-height: 22px;
+}
+a {
+  font-size: 12px;
+  text-decoration: none;
+  color: $primary;
+}
+img {
+  width: 100%;
+  display: flex;
+}
+
+label {
+  cursor: pointer;
+}
+
+svg {
+  display: flex;
+}
+
+input {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  background: $input_bg;
+  border-radius: 5px;
+}
+
+.fill_btn {
+  width: 100%;
+  outline: none;
+  padding: 10px 0;
+  background: $primary;
+  cursor: pointer;
+  border: none;
+  color: $white;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  transition: 0.5s;
+  font-size: 15px;
+
+  &:hover {
+    border: 1px solid $primary;
+    color: $primary;
+    background: transparent;
+  }
+}
+
+.text_btn {
+  width: fit-content;
+  outline: none;
+  padding: 2px 5px;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  color: $white;
+  border-bottom: 1px solid transparent;
+  transition: 0.5s;
+  font-size: 15px;
+
+  &:hover {
+    border-bottom: 1px solid $primary;
+    color: $primary;
+    background: transparent;
+  }
+}
+
+.logo {
+  margin-bottom: 20px;
+
+  h2 {
+    font-weight: 900;
+    color: $primary;
+  }
+  p {
+    color: $white;
+    margin-top: 5px;
+  }
+}
+// Global Style End =============>>>>
+
+// Tostify Style Start =============>>>>
+.Toastify {
+  font-size: 12px;
+
+  .Toastify__toast-body {
+    padding: 0;
+    margin: 0 0;
+  }
+}
+// Tostify Style End =============>>>>
