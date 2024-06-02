@@ -3,9 +3,25 @@
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  flex-direction: column;
+  align-items: center;
 
   .title {
-    color: $light_text;
+    color: $primary;
+  }
+
+  .myData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      color: $primary;
+      text-transform: uppercase;
+    }
+    h2 {
+      color: $light_text;
+    }
   }
 }
 // Home Style End =============>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -22,6 +38,7 @@
 
   .logo {
     margin-bottom: 0;
+    cursor: pointer;
     p {
       margin-top: 0;
       line-height: 20px;
@@ -45,6 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999999999999;
   // border: 1px solid red;
 
   .mainPopup {
@@ -52,7 +70,8 @@
     padding: 20px;
     border-radius: 5px;
     max-width: 600px;
-    background: rgba($color: $primary, $alpha: 0.05);
+    // background: rgba($color: $primary, $alpha: 0.05);
+    background: $dark_full;
 
     .title {
       color: $white;
@@ -152,13 +171,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999999999;
 
   .mainPopup {
     width: 100%;
     padding: 20px;
     border-radius: 5px;
     max-width: 600px;
-    background: rgba($color: $primary, $alpha: 0.05);
+    // background: rgba($color: $primary, $alpha: 0.05);
+    background: $dark_full;
 
     .title {
       color: $white;
@@ -502,7 +523,8 @@
     padding: 20px;
     border-radius: 5px;
     max-width: 600px;
-    background: rgba($color: $primary, $alpha: 0.05);
+    // background: rgba($color: $primary, $alpha: 0.05);
+    background: $dark_full;
 
     .users {
       // border: 1px solid red;
@@ -678,7 +700,7 @@
 
 // Rander Attachment Style Start =============>>>>>>>>>>>>>>>>>>>>>>>>>>>
 .randerAttachment {
-  border: 1px solid rgba($color: $primary, $alpha: .5);
+  border: 1px solid rgba($color: $primary, $alpha: 0.5);
   padding: 10px;
   margin-top: 5px;
   border-radius: 10px;
@@ -692,24 +714,23 @@
 // Rander Attachment Style End =============>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 // Manage Group Style Start =============>>>>>>>>>>>>>>>>>>>>>>>>>>>
-.manageGroup{
+.manageGroup {
   // border: 1px solid red;
   height: 100vh;
   width: 100%;
   display: flex;
 
-  .allGroups{
+  .allGroups {
     // border: 1px solid red;
     width: 20%;
 
-    .groupsWrapper{
+    .groupsWrapper {
       // border: 1px solid red;
       height: calc(100% - 100px);
       overflow-y: scroll;
     }
 
-
-    .heading{
+    .heading {
       background: $dark;
       padding: 20px 20px;
       display: flex;
@@ -717,19 +738,18 @@
       align-items: center;
       gap: 10px;
 
-      .title{
+      .title {
         color: $primary;
       }
     }
   }
-  .contentWrapper{
+  .contentWrapper {
     border: 1px solid red;
     width: 80%;
     padding-left: 30px;
   }
 }
 // Manage Group End Start =============>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 
 // Group Chat Card Start =============>>>>>>>>>>>>>>>>>>>>>>>>>>>
 .GroupchatCard {

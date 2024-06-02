@@ -6,7 +6,6 @@ const Loading = () => {
   return (
     <div className="loading">
       <CircularProgress color="primary" size={50} />
-
       <h2>Loading...</h2>
     </div>
   );

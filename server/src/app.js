@@ -3,6 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import error from "./middlewares/error.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const app = express();
 
@@ -14,6 +15,14 @@ app.use(
   })
 );
 // Cors End =======================>>>>>>>>>>>>>>>>>>
+
+// cloudinary Configuration Start =>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+cloudinary.config({
+  cloud_name: "dfestojya",
+  api_key: "285341213634797",
+  api_secret: "c9OiKZfbzj6Zv70qkjpF3UjPZwE",
+});
+// cloudinary Configuration End =>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 // Imp App User Start =======================>>>>>>>>>>>>>>>>>>
 app.use(express.json());

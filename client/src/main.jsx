@@ -18,25 +18,33 @@ import { CssBaseline } from "@mui/material";
 import { HelmetProvider } from "react-helmet-async";
 // ============ React Tost End ====================>>>>>>>>>>>>
 
+// ============ React Redux toolkit Start ====================>>>>>>>>>>>>
+
+import { Provider } from "react-redux";
+import { store } from "./global/store.js";
+// ============ React Redux toolkit End ====================>>>>>>>>>>>>
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
-    <HelmetProvider>
-      {/* <div onContextMenu={(e) => e.preventDefault()}> */}
+    <Provider store={store}>
+      <HelmetProvider>
+        {/* <div onContextMenu={(e) => e.preventDefault()}> */}
         <App />
-      {/* </div> */}
-      <CssBaseline />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
-    </HelmetProvider>
+        {/* </div> */}
+        <CssBaseline />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+      </HelmetProvider>
+    </Provider>
   </ThemeProvider>
 );

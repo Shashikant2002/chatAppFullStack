@@ -10,6 +10,7 @@ import { RequestSchema } from "../models/requestModal.js";
 import { emitEvent } from "../utils/socketIoHelpers.js";
 import { NEW_REQUEST, REFETCH_CHATES } from "../constants/socketEvents.js";
 import { getOtherMembers } from "../utils/Helpers.js";
+import { UploadFileToCloudinary } from "../utils/cloudinary.js";
 
 export const loginUser = catchAsyncHandaler(async (req, res, next) => {
   const { email, password } = req.body;
@@ -48,6 +49,12 @@ export const loginUser = catchAsyncHandaler(async (req, res, next) => {
 export const registerUser = catchAsyncHandaler(async (req, res, next) => {
   const { name, email, password, cPassword } = req.body;
 
+  const avatar = req.file;
+
+  if (!avatar) {
+    return next(new ErrorHandeler("Please Provide a Profile Picture !!", 400));
+  }
+
   if (!name || !email || !password || !cPassword) {
     return next(new ErrorHandeler("Please Fill All The Fields !!", 400));
   }
@@ -73,12 +80,23 @@ export const registerUser = catchAsyncHandaler(async (req, res, next) => {
     );
   }
 
+  const result = await UploadFileToCloudinary(`/user/images`, [avatar]);
+
+  console.log(result);
+
+  let image = {};
+
+  if (result.length > 0) {
+    image = { public_id: result[0].public_id, url: result[0].url };
+  }
+
   const user = await UserSchema.create({
     user_id: userId,
     user_name: userName,
     name,
     email,
     password,
+    avatar: image,
   });
 
   sendToken(res, user, 200, `Register Successfull. ${name}`);
@@ -86,10 +104,6 @@ export const registerUser = catchAsyncHandaler(async (req, res, next) => {
 
 export const me = catchAsyncHandaler(async (req, res, next) => {
   const user = req.user;
-
-  if (!user) {
-    return next(new ErrorHandeler("Please Login !!", 400));
-  }
 
   res.status(200).json({
     success: true,
@@ -474,16 +488,17 @@ export const myFriends = catchAsyncHandaler(async (req, res, next) => {
   if (chatId) {
     const chat = await ChatSchema.findById(chatId);
 
-    
     if (!chat) {
       return next(new ErrorHandeler("Chat Not Found !!", 400));
     }
 
     // console.log(friends);
 
-    const availableFriends = friends.filter(
-      (friend) => !chat.members.includes(friend._id)
-    );
+    const availableFriends = friends.filter((friend) => {
+      // console.log(friend._id, chat.members, !chat.members.includes(friend._id));
+
+      return !chat.members.includes(friend._id);
+    });
 
     res.status(200).json({
       success: true,

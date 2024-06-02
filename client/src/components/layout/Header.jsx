@@ -8,6 +8,8 @@ import { HiLogout } from "react-icons/hi";
 import Confirm from "../shared/Confirm";
 import Loading from "../shared/Loading";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutMe } from "../../global/asyncThung/userAsync";
 
 const Search = lazy(() => import("../common/SearchBox"));
 const Notification = lazy(() => import("../common/Notification"));
@@ -15,6 +17,7 @@ const Notification = lazy(() => import("../common/Notification"));
 const Header = () => {
   const [perLogout, setPerLogout] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isSearch, setIsSearch] = useState(false);
   const [isNotification, setIsNotification] = useState(false);
@@ -22,7 +25,12 @@ const Header = () => {
   return (
     <>
       <div className="header">
-        <div className="logo">
+        <div
+          className="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <h2>Shashikant</h2>
           <p>Whats's App Clone</p>
         </div>
@@ -82,6 +90,7 @@ const Header = () => {
         description={"Your Want To Logout"}
         accept={() => {
           setPerLogout(false);
+          dispatch(logoutMe({}));
         }}
         reject={() => {
           setPerLogout(false);

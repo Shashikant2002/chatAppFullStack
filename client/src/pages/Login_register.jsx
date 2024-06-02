@@ -1,9 +1,14 @@
 import { Avatar, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, registerUser } from "../global/asyncThung/userAsync";
 const Login_register = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const dispatch = useDispatch();
+
+  const userDetail = useSelector((state) => state.user);
 
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [registerData, setRegisterData] = useState({
@@ -15,7 +20,6 @@ const Login_register = () => {
   });
 
   // Onchange Handaler Start =================>>>>>>>>>>>>>>>>>>>>
-
   const registerOnChangeHandeler = (e) => {
     if (e.target.name == "avatar") {
       setRegisterData((prev) => {
@@ -33,23 +37,33 @@ const Login_register = () => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-
   // Onchange Handaler End =================>>>>>>>>>>>>>>>>>>>>
 
   // Submit Handaler Start =================>>>>>>>>>>>>>>>>>>>>
-
   const loginSubmitHandaler = (e) => {
     e.preventDefault();
     console.log(loginData);
+    dispatch(loginUser(loginData));
   };
   const RegisterSubmitHandaler = (e) => {
     e.preventDefault();
     console.log(registerData);
 
-    toast.error("Error");
-  };
+    if (registerData.password !== registerData.cPassword) {
+      return toast.error("Password is Not Match !!");
+    }
+    if (registerData.password.length < 8) {
+      return toast.error("Password Should be in 8 Character !!");
+    }
+    
+    if(!registerData.avatar){
+      return toast.error("Please Provide Profile Picture !!");
+    }
 
+    dispatch(registerUser({ ...registerData }));
+  };
   // Submit Handaler End =================>>>>>>>>>>>>>>>>>>>>
+
   return (
     <div className="login_register">
       {isLogin ? (

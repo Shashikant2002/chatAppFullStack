@@ -10,6 +10,18 @@ const sendToken = (res, user, code, message) => {
     secure: true,
   };
 
+  console.log(user);
+
+  let newUser = {
+    avatar: user.avatar,
+    _id: user._id,
+    user_id: user.user_id,
+    user_name: user.user_name,
+    name: user.name,
+    email: user.email,
+    bio: user.bio,
+  };
+
   return res
     .status(code)
     .cookie(CookiesName?.LOGIN_TOKEN_NAME, token, option)
@@ -17,7 +29,7 @@ const sendToken = (res, user, code, message) => {
       success: true,
       message: message,
       token: token,
-      user,
+      user: newUser,
     });
 };
 

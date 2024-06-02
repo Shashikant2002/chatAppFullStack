@@ -1,7 +1,7 @@
 import {
   ALERT,
   NEW_ATTACHMENT,
-  NEW_MESSAGE,
+  NEW_MESSAGE_ALERT,
   REFETCH_CHATES,
 } from "../constants/socketEvents.js";
 import { ChatSchema } from "../models/chatModal.js";
@@ -294,6 +294,8 @@ export const sendAttachment = catchAsyncHandaler(async (req, res, next) => {
 
   const files = req.files || [];
 
+  console.log(files);
+
   if (files.length < 1) {
     return next(new ErrorHandeler("Please Proid file Attachment !!", 400));
   }
@@ -320,7 +322,7 @@ export const sendAttachment = catchAsyncHandaler(async (req, res, next) => {
     message: messageForRealTime,
     chatId: chat._id,
   });
-  emitEvent(req, NEW_MESSAGE, chat.members, {
+  emitEvent(req, NEW_MESSAGE_ALERT, chat.members, {
     chatId: chat._id,
   });
   // Emiting Chates End ====================>>>>>>>>>>>>>>>>>>>

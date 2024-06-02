@@ -2,18 +2,19 @@ import React, { Suspense, lazy, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Loading from "../components/shared/Loading";
 import ProtectedRoute from "./ProtectedRoute";
+import { useSelector } from "react-redux";
 
 // Page Importing Start ========================>>>>>>>>>>>>>>>>>>>>>>>>
 const Login_register = lazy(() => import("../pages/Login_register"));
 // Page Importing End ========================>>>>>>>>>>>>>>>>>>>>>>>>
 
 const AllRoutes = () => {
-  const [isAuth, setIsAuth] = useState(true);
+  const userDetail = useSelector((state) => state.user);
 
   return (
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
-        {isAuth ? (
+        {userDetail.auth ? (
           <ProtectedRoute />
         ) : (
           <Routes>

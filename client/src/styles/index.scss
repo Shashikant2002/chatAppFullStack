@@ -159,3 +159,18 @@ input {
   }
 }
 // Tostify Style End =============>>>>
+
+// Loading Start =========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+  
+
+  h2{
+    color: $white;
+  }
+}
+// Loading End =========================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
