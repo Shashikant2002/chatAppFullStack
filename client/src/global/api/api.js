@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../../config";
 
 const api = createApi({
-  reducerPath: "basic_api",
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: `${baseUrl}/api/v1` }),
   tagTypes: ["Chat"],
 
@@ -14,5 +14,6 @@ const api = createApi({
   }),
 });
 
-export const { useMyChatesQuery } = api;
 export default api;
+
+export const { useMyChatesQuery } = api;

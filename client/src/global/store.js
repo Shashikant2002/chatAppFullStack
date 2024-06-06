@@ -4,6 +4,9 @@ import userSlice from "./slices/userSlice";
 import apiRTKQuery from "./api/api";
 
 export const store = configureStore({
-  reducer: { user: userSlice, [apiRTKQuery.reducerPath]: apiRTKQuery.reducer },
-  middleware: (defaultMiddleWare) => [...defaultMiddleWare(), apiRTKQuery.middleware],
+  reducer: {
+    user: userSlice,
+    [apiRTKQuery.reducerPath]: apiRTKQuery.reducer
+  },
+  middleware: (mid) => [...mid(), apiRTKQuery.middleware],
 });

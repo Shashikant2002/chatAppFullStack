@@ -5,10 +5,8 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 const ChatItem = ({ index }) => {
   return (
     <div className={`${index == 5 ? "active" : ""} chatCard`}>
-      <AvatarGroup total={50} max={2}>
-        <Avatar sx={{ width: 50, height: 50 }} />
-        <Avatar sx={{ width: 50, height: 50 }} />
-        <Avatar sx={{ width: 50, height: 50 }} />
+      <AvatarGroup total={1} max={2}>
+        <Avatar src="" sx={{ width: 50, height: 50 }} />
       </AvatarGroup>
 
       <div className="content">

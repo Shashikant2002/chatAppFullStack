@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 // Page Importing Start ========================>>>>>>>>>>>>>>>>>>>>>>>>
@@ -9,11 +9,13 @@ const Group = lazy(() => import("../pages/Groups"));
 
 const ProtectedRoute = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/chat/:chat_id" element={<Chat />} />
-      <Route path="/group" element={<Group />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat/:chat_id" element={<Chat />} />
+        <Route path="/group" element={<Group />} />
+      </Routes>
+    </>
   );
 };
 

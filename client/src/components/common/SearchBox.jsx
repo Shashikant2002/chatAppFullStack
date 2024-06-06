@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import SearchUser from "../shared/SearchUser";
 
 const Search = ({ isSearch, setIsSearch }) => {
+  const [inputSearch, setInputSearch] = useState("");
+  const searchNewFriends = () => {};
+
   return isSearch ? (
     <div className="search">
       <div className="mainPopup">
@@ -15,7 +18,13 @@ const Search = ({ isSearch, setIsSearch }) => {
         <div className="searchMain">
           <div className="input">
             <label htmlFor="search">Search Your Friend</label>
-            <input id="search" type="text" placeholder="Search Here........." />
+            <input
+              id="search"
+              type="text"
+              placeholder="Search Here........."
+              value={inputSearch}
+              onChange={(e) => setInputSearch(e.target.value)}
+            />
           </div>
         </div>
 
@@ -31,7 +40,7 @@ const Search = ({ isSearch, setIsSearch }) => {
           <button
             className="fill_btn"
             onClick={() => {
-              setIsSearch(false);
+              searchNewFriends();
             }}
           >
             Search
@@ -46,7 +55,7 @@ const Search = ({ isSearch, setIsSearch }) => {
           </div>
 
           {new Array(10)?.fill({})?.map((_, i) => (
-            <SearchUser />
+            <SearchUser  key={i}/>
           ))}
         </div>
       </div>
