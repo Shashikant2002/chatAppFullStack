@@ -167,6 +167,12 @@ input {
   align-items: center;
   gap: 20px;
   height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  // border: 1px solid red;
+  left: 0;
+  background: $dark;
   
 
   h2{

@@ -13,7 +13,10 @@ const useError = (errors = []) => {
       }
     });
   }, [errors]);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 680029d46f7b287de917d552307f3717419347ee
 };
 
 export default useError;

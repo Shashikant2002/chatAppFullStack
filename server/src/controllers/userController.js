@@ -242,7 +242,7 @@ export const userFindById = catchAsyncHandaler(async (req, res, next) => {
   });
 });
 
-export const searchUsers = catchAsyncHandaler(async (req, res, next) => {
+export const  searchUsers = catchAsyncHandaler(async (req, res, next) => {
   const { search, limit = 1, page = 1 } = req.query;
   const me = req.user;
 
