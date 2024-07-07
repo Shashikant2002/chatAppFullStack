@@ -1,32 +1,30 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
-=======
-import React, { useState } from "react";
->>>>>>> 680029d46f7b287de917d552307f3717419347ee
-import TextField from "@mui/material/TextField";
-import SearchUser from "../shared/SearchUser";
-import { useLazySearchUserQuery } from "../../global/api/api";
+import {
+  useLazySearchUserQuery,
+  useSendFriendRequestMutation,
+} from "../../global/api/api";
 import useError from "../../hooks/error";
 import Loading from "../shared/Loading";
+import SearchUser from "../shared/SearchUser";
+import useAsyncMutation from "../../hooks/asyncMutation";
 
 const Search = ({ isSearch, setIsSearch }) => {
-<<<<<<< HEAD
   const [searchUser] = useLazySearchUserQuery();
   const [loading, setLoading] = useState(false);
   const [paginationDetail, setPaginationDetail] = useState({
     page: 1,
-    limit: 2,
+    limit: 5,
   });
   const [search, setSearch] = useState("");
   const [mainData, setMainData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
 
-  const searchUserCustom = () => {
+  const searchUserCustom = (page = 1) => {
     setLoading(true);
     searchUser({
       search: search,
       limit: paginationDetail.limit,
-      page: paginationDetail.page,
+      page: page,
     })
       .then(({ data, isError, error }) => {
         console.log(data);
@@ -47,7 +45,6 @@ const Search = ({ isSearch, setIsSearch }) => {
 
   useEffect(() => {
     const timeOutId = setTimeout(() => {
-      console.log(search);
       searchUserCustom();
     }, 1000);
 
@@ -56,20 +53,28 @@ const Search = ({ isSearch, setIsSearch }) => {
     };
   }, [search]);
 
-  const loadmoreUsers = () => {
-    setPaginationDetail((prev) => ({ ...prev, page: prev.page + 1 }));
-    searchUserCustom();
+  const loadmoreUsers = async () => {
+    await setPaginationDetail((prev) => ({ ...prev, page: prev.page + 1 }));
+    await searchUserCustom(paginationDetail.page + 1);
   };
 
-  console.log(paginationDetail);
-=======
-  const [inputSearch, setInputSearch] = useState("");
-  const searchNewFriends = () => {};
->>>>>>> 680029d46f7b287de917d552307f3717419347ee
+  const [sendFriendRequestApiFunction, isLoading] = useAsyncMutation(
+    useSendFriendRequestMutation
+  );
+
+  const sendFriendRequest = async (id) => {
+    try {
+      await sendFriendRequestApiFunction("Sanding Friend Request !!!", {
+        receiver: id, 
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return isSearch ? (
     <div className="search">
-      {loading ? <Loading /> : ""}
+      {loading || isLoading ? <Loading /> : ""}
       <div className="mainPopup">
         <h3 className="title">Search Here</h3>
         <p className="description">
@@ -84,19 +89,13 @@ const Search = ({ isSearch, setIsSearch }) => {
               id="search"
               type="text"
               placeholder="Search Here........."
-<<<<<<< HEAD
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPaginationDetail((prev) => ({ ...prev, page: 1 }));
                 setMainData([]);
               }}
-              />
-=======
-              value={inputSearch}
-              onChange={(e) => setInputSearch(e.target.value)}
             />
->>>>>>> 680029d46f7b287de917d552307f3717419347ee
           </div>
         </div>
 
@@ -106,19 +105,15 @@ const Search = ({ isSearch, setIsSearch }) => {
             onClick={() => {
               setIsSearch(false);
             }}
-            >
+          >
             Close
           </button>
           <button
             className="fill_btn"
             onClick={() => {
-<<<<<<< HEAD
               setMainData([]);
               setPaginationDetail((prev) => ({ ...prev, page: 1 }));
               searchUserCustom();
-=======
-              searchNewFriends();
->>>>>>> 680029d46f7b287de917d552307f3717419347ee
             }}
           >
             Search
@@ -131,14 +126,12 @@ const Search = ({ isSearch, setIsSearch }) => {
               <h3 className="notFound">Searching User Not Found</h3>
             </div>
           )}
-
-<<<<<<< HEAD
           {mainData?.map((user, i) => (
-            <SearchUser key={i} user={user} />
-=======
-          {new Array(10)?.fill({})?.map((_, i) => (
-            <SearchUser  key={i}/>
->>>>>>> 680029d46f7b287de917d552307f3717419347ee
+            <SearchUser
+              key={i}
+              user={user}
+              sendFriendRequest={sendFriendRequest}
+            />
           ))}
         </div>
 

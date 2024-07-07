@@ -11,7 +11,6 @@ const App = () => {
   const userDetail = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(fetchMe({}));
   }, []);

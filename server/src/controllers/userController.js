@@ -242,15 +242,16 @@ export const userFindById = catchAsyncHandaler(async (req, res, next) => {
   });
 });
 
-export const  searchUsers = catchAsyncHandaler(async (req, res, next) => {
-  const { search, limit = 1, page = 1 } = req.query;
+export const searchUsers = catchAsyncHandaler(async (req, res, next) => {
+  const { search, limit, page } = req.query;
   const me = req.user;
 
-  const skip = (page - 1) / limit;
+  console.log(search, limit, page);
+
+  const skip = (Number(page) - 1) * Number(limit);
 
   const searchStr = search?.toLowerCase();
-
-  console.log("req.body", searchStr);
+  console.log(skip);
 
   let user = [];
   let userCount = 0;
@@ -260,7 +261,9 @@ export const  searchUsers = catchAsyncHandaler(async (req, res, next) => {
     members: me._id,
   });
 
-  const myFriends = myChates?.flatMap((chat) => chat.members);
+  let myFriends = myChates?.flatMap((chat) => chat.members);
+
+  console.log("myFriends", myFriends);
 
   const [users, userCounts] = await Promise.all([
     UserSchema.find({
@@ -295,10 +298,9 @@ export const  searchUsers = catchAsyncHandaler(async (req, res, next) => {
       ],
     })
       .sort({ createdAt: -1 })
-      .skip(skip)
       .limit(limit)
+      .skip(skip)
       .lean(),
-
     UserSchema.countDocuments({
       _id: {
         $nin: myFriends,
@@ -334,7 +336,6 @@ export const  searchUsers = catchAsyncHandaler(async (req, res, next) => {
 
   user = users.map((user) => ({ ...user, avatar: user?.avatar?.url }));
   userCount = userCounts;
-
   const totalPages = Math.ceil(userCount / limit);
 
   res.status(200).json({
@@ -394,7 +395,7 @@ export const sendFriendRequest = catchAsyncHandaler(async (req, res, next) => {
 
   return res.status(200).json({
     success: true,
-    message: "Request Send Successfull !!",
+    message: `Request Send Successfull to ${isUser?.name} !!`,
   });
 });
 
@@ -457,7 +458,9 @@ export const getAllNotification = catchAsyncHandaler(async (req, res, next) => {
   let requests = await RequestSchema.find({
     receiver: user._id,
     status: "pending",
-  }).populate("sender", "name avatar");
+  }).populate("sender", "name avatar bio");
+
+  console.log("requests", requests);
 
   return res.status(200).json({
     success: true,

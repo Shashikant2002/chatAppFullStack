@@ -11,20 +11,47 @@ const api = createApi({
       query: () => ({ url: "/get_my_chat", credentials: "include" }),
       providesTags: ["Chat"],
     }),
+
+    getNotification: builder.query({
+      query: () => ({ url: "/get_all_notification", credentials: "include" }),
+      providesTags: ["Chat"],
+    }),
+
     searchUser: builder.query({
-      query: ({search, limit, page}) => ({
+      query: ({ search, limit, page }) => ({
         url: `/search_user?search=${search}&limit=${limit}&page=${page}`,
         credentials: "include",
       }),
+      keepUnusedDataFor: 0,
+    }),
+
+    sendFriendRequest: builder.mutation({
+      query: (data) => ({
+        url: `/send_friend_request`,
+        method: "PUT",
+        credentials: "include",
+        body: data,
+      }),
       providesTags: ["User"],
+    }),
+    acceptFriendRequest: builder.mutation({
+      query: (data) => ({
+        url: `/accept_friend_request`,
+        method: "PUT",
+        credentials: "include",
+        body: data,
+      }),
+      providesTags: ["Chat"],
     }),
   }),
 });
 
 export default api;
 
-<<<<<<< HEAD
-export const { useMyChatesQuery, useLazySearchUserQuery } = api;
-=======
-export const { useMyChatesQuery } = api;
->>>>>>> 680029d46f7b287de917d552307f3717419347ee
+export const {
+  useMyChatesQuery,
+  useLazySearchUserQuery,
+  useSendFriendRequestMutation,
+  useGetNotificationQuery,
+  useAcceptFriendRequestMutation,
+} = api;

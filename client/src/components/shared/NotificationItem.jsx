@@ -5,26 +5,44 @@ import { FaPlus } from "react-icons/fa";
 import Tooltip from "@mui/material/Tooltip";
 import { IoMdCheckmark } from "react-icons/io";
 import { FaXmark } from "react-icons/fa6";
+import { useAcceptFriendRequestMutation } from "../../global/api/api";
 
-const NotificationItem = () => {
+const NotificationItem = ({ data }) => {
+  const [acceptFriendRequest] = useAcceptFriendRequestMutation();
+
+  const handleRequest = async (isAccept) => {
+    try {
+      const res = await acceptFriendRequest({
+        reqId: data?._id,
+        isAccept: isAccept,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="notificationItem">
-      <Avatar sx={{ width: 50, height: 50 }} />
+      <Avatar src={data?.sender?.avatar?.url} sx={{ width: 50, height: 50 }} />
 
       <div className="content">
         <div className="main">
-          <h4 className="name">Rahul</h4>
-          <p className="bio">Bio</p>
+          <h4 className="name">{data?.sender?.name}</h4>
+          <p className="bio">{data?.sender?.bio}</p>
         </div>
         <div className="control">
           <Tooltip title="Send Friend Request" arrow>
-            <IconButton color="primary">
-              <FaXmark color="white" />
+            <IconButton color="error" onClick={() => handleRequest(true)}>
+              <FaXmark />
             </IconButton>
           </Tooltip>
 
           <Tooltip title="Send Friend Request" arrow>
-            <IconButton color="primary" varient={"contained"}>
+            <IconButton
+              color="primary"
+              varient={"contained"}
+              onClick={() => handleRequest(true)}
+            >
               <IoMdCheckmark color="white" />
             </IconButton>
           </Tooltip>
