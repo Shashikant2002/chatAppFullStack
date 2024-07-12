@@ -27,7 +27,6 @@ const Search = ({ isSearch, setIsSearch }) => {
       page: page,
     })
       .then(({ data, isError, error }) => {
-        console.log(data);
         setMainData([...mainData, ...data.user]);
         setTotalPage(data.pages);
         setLoading(false);
@@ -65,7 +64,7 @@ const Search = ({ isSearch, setIsSearch }) => {
   const sendFriendRequest = async (id) => {
     try {
       await sendFriendRequestApiFunction("Sanding Friend Request !!!", {
-        receiver: id, 
+        receiver: id,
       });
     } catch (error) {
       console.log(error);

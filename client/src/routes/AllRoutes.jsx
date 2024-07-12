@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Loading from "../components/shared/Loading";
 import ProtectedRoute from "./ProtectedRoute";
 import { useSelector } from "react-redux";
+import { SocketProvider } from "../socket/Socket";
 
 // Page Importing Start ========================>>>>>>>>>>>>>>>>>>>>>>>>
 const Login_register = lazy(() => import("../pages/Login_register"));
@@ -15,7 +16,9 @@ const AllRoutes = () => {
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         {userDetail.auth ? (
-          <ProtectedRoute />
+          <SocketProvider>
+            <ProtectedRoute />
+          </SocketProvider>
         ) : (
           <Routes>
             <Route path="/" element={<Login_register />} />

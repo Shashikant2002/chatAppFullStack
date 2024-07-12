@@ -7,6 +7,10 @@ import useError from "../../hooks/error";
 const Notification = ({ isNotification, setIsNotification }) => {
   const [notification, setNotification] = useState([]);
 
+  const closePopup = () => {
+    setNotification((prev) => !prev);
+  };
+
   const { isLoading, data, error, isError } = useGetNotificationQuery();
 
   useEffect(() => {
@@ -34,7 +38,7 @@ const Notification = ({ isNotification, setIsNotification }) => {
 
             <div className="notificationsGroup">
               {notification?.map((data, i) => (
-                <NotificationItem key={i} data={data} />
+                <NotificationItem key={i} data={data} closePopup={closePopup} />
               ))}
 
               {notification?.length <= 0 ? (

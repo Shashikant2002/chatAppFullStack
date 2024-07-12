@@ -4,7 +4,7 @@ import { baseUrl } from "../../../config";
 const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: `${baseUrl}/api/v1` }),
-  tagTypes: ["Chat", "User"],
+  tagTypes: ["Chat", "User", "Notification", "Messages"],
 
   endpoints: (builder) => ({
     myChates: builder.query({
@@ -14,7 +14,7 @@ const api = createApi({
 
     getNotification: builder.query({
       query: () => ({ url: "/get_all_notification", credentials: "include" }),
-      providesTags: ["Chat"],
+      providesTags: ["Notification"],
     }),
 
     searchUser: builder.query({
@@ -41,7 +41,32 @@ const api = createApi({
         credentials: "include",
         body: data,
       }),
+      providesTags: ["Chat", "Notification"],
+    }),
+
+    chatDetail: builder.query({
+      query: ({ chat_id, populate = false }) => {
+        let url = `/chat/${chat_id}`;
+
+        if (populate) {
+          url += "?populate=true";
+        }
+
+        return {
+          url: url,
+          credentials: "include",
+        };
+      },
       providesTags: ["Chat"],
+    }),
+
+    myMessages: builder.query({
+      query: ({ chat_id, page, limit = 10 }) => ({
+        url: `/message/${chat_id}?page=${page}&limit=${limit}`,
+        credentials: "include",
+      }),
+
+      providesTags: ["Messages"],
     }),
   }),
 });
@@ -54,4 +79,6 @@ export const {
   useSendFriendRequestMutation,
   useGetNotificationQuery,
   useAcceptFriendRequestMutation,
+  useChatDetailQuery,
+  useMyMessagesQuery,
 } = api;

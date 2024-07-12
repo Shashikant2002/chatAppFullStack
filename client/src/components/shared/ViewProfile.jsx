@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import { IconButton } from "@mui/material";
 import { MdClose } from "react-icons/md";
 
-const ViewProfile = ({ isShowProfile, setIsProfile }) => {
+const ViewProfile = ({ isShowProfile, setIsProfile, data }) => {
   return (
     <div className={`viewProfile ${isShowProfile ? "active" : ""}`}>
       <div className="headingMain">
@@ -17,28 +17,28 @@ const ViewProfile = ({ isShowProfile, setIsProfile }) => {
         </IconButton>
       </div>
       <div className="avatar">
-        <Avatar sx={{ height: "150px", width: "150px" }} />
+        <Avatar src={data?.avatar} sx={{ height: "150px", width: "150px" }} />
       </div>
 
       <div className="detail">
         <div className="detailCard">
           <p className="desc">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            {data?.bio}
           </p>
           <p className="title">Bio</p>
         </div>
         <div className="detailCard">
-          <h3 className="desc">Shashikant</h3>
+          <h3 className="desc">{data?.name}</h3>
           <p className="title">Name</p>
         </div>
         <div className="detailCard">
-          <h3 className="desc">shashikant@gmail.com</h3>
+          <h3 className="desc">{data?.email}</h3>
           <p className="title">Email</p>
         </div>
-        <div className="detailCard">
+        {/* <div className="detailCard">
           <h3 className="desc">+91 9643510696</h3>
           <p className="title">Phone Number</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

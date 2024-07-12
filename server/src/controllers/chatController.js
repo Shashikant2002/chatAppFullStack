@@ -334,10 +334,17 @@ export const sendAttachment = catchAsyncHandaler(async (req, res, next) => {
 });
 
 export const getChatById = catchAsyncHandaler(async (req, res, next) => {
-  const user = req.user;
-
   const { id } = req.params;
   const { populate } = req.query;
+  const user = req.user;
+
+  const findChat = await ChatSchema.findById(id);
+
+  let isMyChat = findChat?.members?.includes(user._id);
+
+  if (!isMyChat) {
+    return next(new ErrorHandeler("Not Your Friend !!", 400));
+  }
 
   if (!id) {
     return next(new ErrorHandeler("Chat is not found !!", 400));
@@ -357,10 +364,14 @@ export const getChatById = catchAsyncHandaler(async (req, res, next) => {
     groupChat = data_populate;
 
     groupChat.members = data_populate?.members?.map(
-      ({ _id, name, avatar }) => ({
+      ({ _id, name, avatar, user_id, user_name, email, bio }) => ({
         _id,
         name,
         avatar: avatar?.url,
+        user_id,
+        user_name,
+        email,
+        bio,
       })
     );
   } else {
@@ -496,9 +507,18 @@ export const getMessages = catchAsyncHandaler(async (req, res, next) => {
   const user = req.user;
   const { id } = req.params;
 
-  const { page = 1 } = req.query;
-  const limit = 20;
-  const skip = (page - 1) / limit;
+  const findChat = await ChatSchema.findById(id);
+
+  let isMyChat = findChat?.members?.includes(user._id);
+
+  if (!isMyChat) {
+    return next(new ErrorHandeler("Not Your Friend !!", 400));
+  }
+
+  const { page = 1, limit = 20 } = req.query;
+  const skip = (page - 1) * limit;
+
+  console.log(skip, limit);
 
   if (!id) {
     return next(new ErrorHandeler("Chat is not found !!", 400));
@@ -508,20 +528,22 @@ export const getMessages = catchAsyncHandaler(async (req, res, next) => {
     MessageSchema.find({
       chat: id,
     })
-      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .populate(["sender", "chat"])
+      .populate("sender", "name _id")
+      .sort({ createdAt: -1 })
       .lean(),
     MessageSchema.countDocuments({ chat: id }),
   ]);
 
   const totalPages = Math.ceil(totalMessagesCount / limit);
 
+  let newDataMain = data_populate.reverse()
+
   res.status(200).json({
     success: true,
     message: `Message Finded Successfull !!`,
-    Messages: data_populate,
+    messages: newDataMain,
     pages: totalPages,
   });
 });

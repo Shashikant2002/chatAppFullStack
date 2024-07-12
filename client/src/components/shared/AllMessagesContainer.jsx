@@ -1,14 +1,24 @@
-import React from "react";
-import { sampleMessage } from "../../data/data";
+import React, { useEffect, useRef } from "react";
 import MessageCard from "./MessageCard";
+import ScrollableFeed from "react-scrollable-feed";
 
-const AllMessagesContainer = () => {
+const AllMessagesContainer = ({ messages }) => {
+  const messageContainerRef = useRef(null);
+
   return (
-    <div className="allMessages">
-      {sampleMessage?.map((message, ind) => (
+    // <div
+    //   className="allMessages"
+    //   ref={messageContainerRef}
+    //   onScroll={() => {
+    //     let scrollTop = messageContainerRef.current.scrollTop;
+    //   }}
+    // >
+    <ScrollableFeed className="allMessages">
+      {messages?.map((message, ind) => (
         <MessageCard key={ind} message={message} />
       ))}
-    </div>
+    </ScrollableFeed>
+    // </div>
   );
 };
 

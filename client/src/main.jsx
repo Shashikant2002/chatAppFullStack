@@ -22,12 +22,14 @@ import { HelmetProvider } from "react-helmet-async";
 
 import { Provider } from "react-redux";
 import { store } from "./global/store.js";
+import { SocketProvider } from "./socket/Socket.jsx";
 // ============ React Redux toolkit End ====================>>>>>>>>>>>>
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
       <HelmetProvider>
+        {/* For Disable Right Click on Web page or on the div ====================>>>>>>>>>>>>>>>>>>>>>>> */}
         {/* <div onContextMenu={(e) => e.preventDefault()}> */}
         <App />
         {/* </div> */}

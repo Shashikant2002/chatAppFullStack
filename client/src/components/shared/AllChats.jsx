@@ -7,7 +7,7 @@ import useError from "../../hooks/error";
 const AllChats = () => {
   const { isLoading, data, isError, error, refetch } = useMyChatesQuery();
 
-  console.log(data);
+  // console.log(data);
 
   useError([{ isError, error }]);
 

@@ -134,11 +134,13 @@ export const logout = catchAsyncHandaler(async (req, res, next) => {
 export const users = catchAsyncHandaler(async (req, res, next) => {
   const { search, limit = 1, page = 1 } = req.query;
 
-  const skip = (page - 1) / limit;
+  const skip = (page - 1) * limit;
 
   const searchStr = search?.toLowerCase();
 
-  console.log("req.body", searchStr);
+
+
+  console.log("req.body", skip);
 
   let user = [];
   let userCount = 0;
@@ -403,6 +405,8 @@ export const acceptFriendRequest = catchAsyncHandaler(
   async (req, res, next) => {
     const user = req.user;
     const { reqId, isAccept } = req.body;
+
+    console.log(req.body);
 
     if (!reqId) {
       return next(new ErrorHandeler("Request Id Not Found !!", 400));

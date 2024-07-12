@@ -1,18 +1,18 @@
 import React from "react";
 import AppLayout from "../components/layout/AppLayout";
-import { Avatar, Button, IconButton } from "@mui/material";
-import { FaPlus } from "react-icons/fa";
+import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 
 const Home = () => {
   const userDetail = useSelector((state) => state.user);
 
-  const { name, user_name, user_id, email, createdAt, avatar, bio } =
+  const { name, user_name, user_id, email, createdAt, avatar, bio, _id } =
     userDetail?.userDetail?.user;
 
   return (
     <div className="home">
       <div className="myData">
+        <h3>{_id}</h3>
         <h3>{user_id}</h3>
         <h3>{user_name}</h3>
         <h2>{name}</h2>

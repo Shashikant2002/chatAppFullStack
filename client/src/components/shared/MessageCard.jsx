@@ -2,9 +2,11 @@ import React from "react";
 import moment from "moment";
 import { fileFormat } from "../../lib/features";
 import RanderAttachment from "./RanderAttachment";
+import { useSelector } from "react-redux";
 
 const MessageCard = ({ message }) => {
   const timeAgo = moment(message?.createdAt).fromNow();
+  const userDetail = useSelector((state) => state?.user?.userDetail?.user);
 
   return (
     <div className="messageCardItem">
@@ -12,7 +14,7 @@ const MessageCard = ({ message }) => {
         className="content"
         style={{
           alignSelf:
-            message?.sender?._id == "hello" ? "flex-end" : "flex-start",
+            message?.sender?._id == userDetail._id ? "flex-end" : "flex-start",
         }}
       >
         {message?.sender?._id !== "hello" && (
@@ -30,12 +32,17 @@ const MessageCard = ({ message }) => {
         <p className="message">{message?.content}</p>
 
         {message?.attachment?.length > 0 ? (
-          <div className="attechment" style={{float:`${message?.sender?._id == "hello" ? "right" : "left"}`}}>
+          <div
+            className="attechment"
+            style={{
+              float: `${message?.sender?._id == "hello" ? "right" : "left"}`,
+            }}
+          >
             <p className="title">Your Attechment</p>
             {message?.attachment?.map((file, ind) => {
               const format = fileFormat(file?.url);
 
-              console.log(format);
+              // console.log(format);
 
               return (
                 <a key={ind} href={file?.url} target="_blank" download={true}>
