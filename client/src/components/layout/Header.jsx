@@ -31,8 +31,8 @@ const Header = () => {
             navigate("/");
           }}
         >
-          <h2>Shashikant</h2>
-          <p>Whats's App Clone</p>
+          <h2>Easy Chats</h2>
+          {/* <p>Whats's App Clone</p> */}
         </div>
 
         <div className="features">

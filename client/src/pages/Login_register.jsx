@@ -70,8 +70,8 @@ const Login_register = () => {
         <div className="form">
           <div className="head">
             <div className="logo">
-              <h2>Shashikant</h2>
-              <p>Whats's App Clone</p>
+              <h2>Easy Chats</h2>
+              {/* <p>Whats's App Clone</p> */}
             </div>
 
             <h3>Login Here</h3>
@@ -122,8 +122,8 @@ const Login_register = () => {
         <div className="form">
           <div className="head">
             <div className="logo">
-              <h2>Shashikant</h2>
-              <p>Whats's App Clone</p>
+              <h2>Easy Chats</h2>
+              {/* <p>Whats's App Clone</p> */}
             </div>
 
             <h3>Register Here</h3>
